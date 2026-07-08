@@ -11,7 +11,14 @@ const marqueeBrands = computed(() => [...content.value.brands, ...content.value.
     <div class="brand-marquee" aria-label="Daftar brand pilihan mino.mi store">
       <div class="brand-marquee-track">
         <div v-for="(brand, index) in marqueeBrands" :key="`${brand.name}-${index}`" class="brand-logo-item">
-          <span class="brand-logo-text">{{ brand.name }}</span>
+          <img
+            v-if="brand.logo"
+            :src="brand.logo"
+            :alt="brand.name"
+            class="brand-logo-image"
+            loading="lazy"
+          />
+          <span v-else class="brand-logo-text">{{ brand.name }}</span>
         </div>
       </div>
     </div>
@@ -73,6 +80,13 @@ const marqueeBrands = computed(() => [...content.value.brands, ...content.value.
   opacity:1;
   white-space:nowrap;
 }
+.brand-logo-image{
+  width:100%;
+  max-width:150px;
+  height:64px;
+  object-fit:contain;
+  filter:grayscale(1);
+}
 @keyframes brand-scroll{
   from{transform:translateX(-50%);}
   to{transform:translateX(0);}
@@ -97,6 +111,10 @@ const marqueeBrands = computed(() => [...content.value.brands, ...content.value.
   }
   .brand-logo-text{
     font-size:17px;
+  }
+  .brand-logo-image{
+    max-width:118px;
+    height:52px;
   }
 }
 </style>

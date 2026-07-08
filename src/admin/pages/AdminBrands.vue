@@ -3,10 +3,12 @@ import AdminArrayEditor from '../components/AdminArrayEditor.vue'
 
 const fields = [
   { name: 'name', label: 'Nama brand' },
+  { name: 'logo', label: 'Logo brand opsional', type: 'image', full: true },
 ]
 
 const emptyItem = {
   name: '',
+  logo: '',
 }
 </script>
 

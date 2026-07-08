@@ -187,6 +187,11 @@
 .admin-btn:hover{
   transform:translateY(-1px);
 }
+.admin-btn:disabled{
+  cursor:not-allowed;
+  opacity:.65;
+  transform:none;
+}
 .admin-btn-primary{
   background:var(--admin-maroon);
   color:#fff;
@@ -263,6 +268,58 @@
   color:#b42330;
   font-size:13px;
   font-weight:700;
+}
+.admin-image-upload{
+  display:grid;
+  gap:9px;
+}
+.admin-file-input{
+  width:100%;
+  border:1px dashed var(--admin-line);
+  border-radius:12px;
+  padding:12px;
+  background:#fffafa;
+  color:#7d6770;
+  font-size:13px;
+}
+.admin-file-input::file-selector-button{
+  margin-right:12px;
+  border:0;
+  border-radius:999px;
+  padding:8px 12px;
+  background:var(--admin-pink);
+  color:var(--admin-maroon);
+  font-weight:800;
+}
+.admin-upload-note,
+.admin-upload-success,
+.admin-upload-error{
+  margin:0;
+  font-size:13px;
+  font-weight:800;
+}
+.admin-upload-note{
+  color:var(--admin-maroon);
+}
+.admin-upload-success{
+  color:#15803d;
+}
+.admin-upload-error{
+  color:#b42330;
+}
+.admin-image-preview{
+  width:min(100%, 240px);
+  aspect-ratio:4 / 3;
+  border:1px solid var(--admin-line);
+  border-radius:12px;
+  background:var(--admin-cream);
+  overflow:hidden;
+}
+.admin-image-preview img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
 @media (max-width:980px){

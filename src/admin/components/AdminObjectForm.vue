@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useSiteContent } from '../../composables/useSiteContent'
+import AdminImageUpload from './AdminImageUpload.vue'
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -13,6 +14,7 @@ const { content, updateSection } = useSiteContent()
 const clone = (value) => JSON.parse(JSON.stringify(value || {}))
 const draft = ref(clone(content.value[props.sectionKey]))
 const saved = ref(false)
+const uploadCount = ref(0)
 
 watch(
   () => content.value[props.sectionKey],
@@ -27,6 +29,11 @@ const save = () => {
   window.setTimeout(() => {
     saved.value = false
   }, 1600)
+}
+
+const handleUploadingChange = (isUploading) => {
+  uploadCount.value += isUploading ? 1 : -1
+  if (uploadCount.value < 0) uploadCount.value = 0
 }
 </script>
 
@@ -48,9 +55,16 @@ const save = () => {
           class="admin-field"
           :class="{ 'admin-field--full': field.type === 'textarea' || field.full }"
         >
-          <label :for="`${props.sectionKey}-${field.name}`">{{ field.label }}</label>
+          <label v-if="field.type !== 'image'" :for="`${props.sectionKey}-${field.name}`">{{ field.label }}</label>
+          <AdminImageUpload
+            v-if="field.type === 'image'"
+            :id="`${props.sectionKey}-${field.name}`"
+            v-model="draft[field.name]"
+            :label="field.label"
+            @uploading-change="handleUploadingChange"
+          />
           <textarea
-            v-if="field.type === 'textarea'"
+            v-else-if="field.type === 'textarea'"
             :id="`${props.sectionKey}-${field.name}`"
             v-model="draft[field.name]"
             class="admin-textarea"
@@ -66,9 +80,9 @@ const save = () => {
       </div>
 
       <div class="admin-actions">
-        <button class="admin-btn admin-btn-primary" type="submit">
+        <button class="admin-btn admin-btn-primary" type="submit" :disabled="uploadCount > 0">
           <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
-          Simpan
+          {{ uploadCount > 0 ? 'Mengupload...' : 'Simpan' }}
         </button>
       </div>
     </form>

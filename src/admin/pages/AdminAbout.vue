@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useSiteContent } from '../../composables/useSiteContent'
+import AdminImageUpload from '../components/AdminImageUpload.vue'
 
 const { content, updateSection } = useSiteContent()
 const draft = ref({
@@ -8,6 +9,7 @@ const draft = ref({
   paragraphsText: content.value.about.paragraphs.join('\n\n'),
 })
 const saved = ref(false)
+const uploadCount = ref(0)
 
 const save = () => {
   updateSection('about', {
@@ -21,6 +23,11 @@ const save = () => {
   window.setTimeout(() => {
     saved.value = false
   }, 1600)
+}
+
+const handleUploadingChange = (isUploading) => {
+  uploadCount.value += isUploading ? 1 : -1
+  if (uploadCount.value < 0) uploadCount.value = 0
 }
 </script>
 
@@ -45,8 +52,12 @@ const save = () => {
           <input id="about-title" v-model="draft.title" class="admin-input" />
         </div>
         <div class="admin-field admin-field--full">
-          <label for="about-image">URL/path gambar</label>
-          <input id="about-image" v-model="draft.image" class="admin-input" />
+          <AdminImageUpload
+            id="about-image"
+            v-model="draft.image"
+            label="URL/path gambar atau upload"
+            @uploading-change="handleUploadingChange"
+          />
         </div>
         <div class="admin-field admin-field--full">
           <label for="about-alt">Alt gambar</label>
@@ -59,7 +70,9 @@ const save = () => {
       </div>
 
       <div class="admin-actions">
-        <button class="admin-btn admin-btn-primary" type="submit">Simpan</button>
+        <button class="admin-btn admin-btn-primary" type="submit" :disabled="uploadCount > 0">
+          {{ uploadCount > 0 ? 'Mengupload...' : 'Simpan' }}
+        </button>
       </div>
     </form>
   </section>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useSiteContent } from '../../composables/useSiteContent'
+import AdminImageUpload from './AdminImageUpload.vue'
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -17,6 +18,7 @@ const clone = (value) => JSON.parse(JSON.stringify(value))
 const draft = ref(clone(props.emptyItem))
 const editingIndex = ref(null)
 const saved = ref(false)
+const uploadCount = ref(0)
 
 const clearForm = () => {
   draft.value = clone(props.emptyItem)
@@ -46,6 +48,11 @@ const deleteItem = (index) => {
   removeItem(props.sectionKey, index)
   if (editingIndex.value === index) clearForm()
 }
+
+const handleUploadingChange = (isUploading) => {
+  uploadCount.value += isUploading ? 1 : -1
+  if (uploadCount.value < 0) uploadCount.value = 0
+}
 </script>
 
 <template>
@@ -66,9 +73,16 @@ const deleteItem = (index) => {
           class="admin-field"
           :class="{ 'admin-field--full': field.type === 'textarea' || field.full }"
         >
-          <label :for="`${props.sectionKey}-${field.name}`">{{ field.label }}</label>
+          <label v-if="field.type !== 'image'" :for="`${props.sectionKey}-${field.name}`">{{ field.label }}</label>
+          <AdminImageUpload
+            v-if="field.type === 'image'"
+            :id="`${props.sectionKey}-${field.name}`"
+            v-model="draft[field.name]"
+            :label="field.label"
+            @uploading-change="handleUploadingChange"
+          />
           <textarea
-            v-if="field.type === 'textarea'"
+            v-else-if="field.type === 'textarea'"
             :id="`${props.sectionKey}-${field.name}`"
             v-model="draft[field.name]"
             class="admin-textarea"
@@ -84,9 +98,9 @@ const deleteItem = (index) => {
       </div>
 
       <div class="admin-actions">
-        <button class="admin-btn admin-btn-primary" type="submit">
+        <button class="admin-btn admin-btn-primary" type="submit" :disabled="uploadCount > 0">
           <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
-          {{ editingIndex === null ? 'Tambah' : 'Simpan Edit' }}
+          {{ uploadCount > 0 ? 'Mengupload...' : (editingIndex === null ? 'Tambah' : 'Simpan Edit') }}
         </button>
         <button class="admin-btn admin-btn-secondary" type="button" @click="clearForm">
           Kosongkan
