@@ -1,5 +1,3 @@
-const asset = (path) => new URL(path, import.meta.url).href
-
 export const defaultSiteContent = {
   hero: {
     titleBefore: 'Toko kosmetik kecil,',
@@ -48,28 +46,28 @@ export const defaultSiteContent = {
   ],
   products: [
     {
-      image: asset('../assets/images/product-anessa.png'),
+      image: '/images/product-anessa.png',
       imageAlt: 'Produk Anessa sunscreen',
       category: 'Skincare',
       title: 'Perawatan Wajah',
       description: 'Serum, toner, sunscreen, hingga pelembap untuk perawatan harian.',
     },
     {
-      image: asset('../assets/images/product-azarine.png'),
+      image: '/images/product-azarine.png',
       imageAlt: 'Produk makeup Azarine',
       category: 'Makeup',
       title: 'Makeup Sehari-hari',
       description: 'Lip cream, cushion, hingga produk makeup ringan untuk tampil natural.',
     },
     {
-      image: asset('../assets/images/product-derma-angel.png'),
+      image: '/images/product-derma-angel.png',
       imageAlt: 'Produk body care Derma Angel',
       category: 'Perawatan Tubuh',
       title: 'Body Care',
       description: 'Lotion, body wash, dan perawatan tubuh untuk kulit tetap sehat.',
     },
     {
-      image: asset('../assets/images/product-elsheskin.png'),
+      image: '/images/product-elsheskin.png',
       imageAlt: 'Produk paket Elsheskin',
       category: 'Paket & Bundling',
       title: 'Paket Hemat',
@@ -78,21 +76,21 @@ export const defaultSiteContent = {
   ],
   bestSellers: [
     {
-      image: asset('../assets/images/bestseller-wardah.png'),
+      image: '/images/bestseller-wardah.png',
       imageAlt: 'Wardah toner dan serum',
       category: 'Skincare',
       title: 'Toner & Serum',
       description: 'Favorit pelanggan untuk perawatan wajah harian.',
     },
     {
-      image: asset('../assets/images/bestseller-matte-cushion.png'),
+      image: '/images/bestseller-matte-cushion.png',
       imageAlt: 'Lip matte dan cushion',
       category: 'Makeup',
       title: 'Cushion & Lip Cream',
       description: 'Paling diminati untuk tampilan makeup ringan sehari-hari.',
     },
     {
-      image: asset('../assets/images/bestseller-glad2glow.png'),
+      image: '/images/bestseller-glad2glow.png',
       imageAlt: 'Glad2Glow facial wash',
       category: 'Skincare',
       title: 'Facial Wash',
@@ -102,7 +100,7 @@ export const defaultSiteContent = {
   about: {
     eyebrow: 'History',
     title: 'Cerita di Balik mino.mi store',
-    image: asset('../assets/images/storefront-minomi.png'),
+    image: '/images/storefront-minomi.png',
     imageAlt: 'Tampak depan toko mino.mi Beauty & Accessories',
     paragraphs: [
       'mino.mi store merupakan toko kosmetik dan aksesori kecantikan yang menyediakan berbagai kebutuhan perawatan diri, mulai dari skincare, makeup, hair care, body care, parfum, nail care, hingga aksesori kecantikan. Landing page ini dibuat sebagai media informasi dan promosi digital agar pelanggan lebih mudah mengenal mino.mi store sebelum datang langsung ke toko.',

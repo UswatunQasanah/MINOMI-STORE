@@ -5,14 +5,59 @@ const STORAGE_KEY = 'minomi-site-content'
 
 const clone = (value) => JSON.parse(JSON.stringify(value))
 
+const publicImageMap = {
+  'product-anessa': '/images/product-anessa.png',
+  'product-azarine': '/images/product-azarine.png',
+  'product-derma-angel': '/images/product-derma-angel.png',
+  'product-elsheskin': '/images/product-elsheskin.png',
+  'bestseller-wardah': '/images/bestseller-wardah.png',
+  'bestseller-matte-cushion': '/images/bestseller-matte-cushion.png',
+  'bestseller-glad2glow': '/images/bestseller-glad2glow.png',
+  'storefront-minomi': '/images/storefront-minomi.png',
+}
+
+const normalizeImagePath = (image) => {
+  if (!image || /^https?:\/\//.test(image) || image.startsWith('/images/')) return image
+
+  const match = Object.entries(publicImageMap).find(([name]) => image.includes(name))
+  return match ? match[1] : image
+}
+
+const normalizeImages = (siteContent) => {
+  const nextContent = clone(siteContent)
+
+  nextContent.products = (nextContent.products || []).map((item) => ({
+    ...item,
+    image: normalizeImagePath(item.image),
+  }))
+
+  nextContent.bestSellers = (nextContent.bestSellers || []).map((item) => ({
+    ...item,
+    image: normalizeImagePath(item.image),
+  }))
+
+  if (nextContent.about) {
+    nextContent.about.image = normalizeImagePath(nextContent.about.image)
+  }
+
+  return nextContent
+}
+
 const readStorage = () => {
-  if (typeof window === 'undefined') return clone(defaultSiteContent)
+  if (typeof window === 'undefined') return normalizeImages(defaultSiteContent)
 
   try {
     const saved = window.localStorage.getItem(STORAGE_KEY)
-    return saved ? { ...clone(defaultSiteContent), ...JSON.parse(saved) } : clone(defaultSiteContent)
+    const siteContent = saved ? { ...clone(defaultSiteContent), ...JSON.parse(saved) } : clone(defaultSiteContent)
+    const normalizedContent = normalizeImages(siteContent)
+
+    if (saved) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedContent))
+    }
+
+    return normalizedContent
   } catch {
-    return clone(defaultSiteContent)
+    return normalizeImages(defaultSiteContent)
   }
 }
 
