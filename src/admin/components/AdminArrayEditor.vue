@@ -79,6 +79,7 @@ const handleUploadingChange = (isUploading) => {
             :id="`${props.sectionKey}-${field.name}`"
             v-model="draft[field.name]"
             :label="field.label"
+            :folder="field.uploadFolder || props.sectionKey"
             @uploading-change="handleUploadingChange"
           />
           <textarea

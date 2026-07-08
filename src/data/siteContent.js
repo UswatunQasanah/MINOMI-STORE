@@ -8,6 +8,8 @@ export const defaultSiteContent = {
     primaryButtonUrl: 'https://wa.me/6281372798866',
     secondaryButtonText: 'Lihat Produk Bulan Ini',
     secondaryButtonUrl: '#produk-bulan-ini',
+    image: '',
+    imageAlt: 'Gambar hero mino.mi store',
   },
   brands: [
     { name: 'Wardah' },

@@ -3,7 +3,7 @@ import AdminArrayEditor from '../components/AdminArrayEditor.vue'
 
 const fields = [
   { name: 'name', label: 'Nama brand' },
-  { name: 'logo', label: 'Logo brand opsional', type: 'image', full: true },
+  { name: 'logo', label: 'Logo brand opsional', type: 'image', uploadFolder: 'brands', full: true },
 ]
 
 const emptyItem = {

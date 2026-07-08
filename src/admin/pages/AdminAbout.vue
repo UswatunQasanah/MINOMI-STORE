@@ -56,6 +56,7 @@ const handleUploadingChange = (isUploading) => {
             id="about-image"
             v-model="draft.image"
             label="URL/path gambar atau upload"
+            folder="about"
             @uploading-change="handleUploadingChange"
           />
         </div>

@@ -10,6 +10,8 @@ const fields = [
   { name: 'primaryButtonUrl', label: 'Link tombol WhatsApp' },
   { name: 'secondaryButtonText', label: 'Teks tombol kedua' },
   { name: 'secondaryButtonUrl', label: 'Link tombol kedua' },
+  { name: 'image', label: 'Gambar hero opsional', type: 'image', uploadFolder: 'hero', full: true },
+  { name: 'imageAlt', label: 'Alt gambar hero', full: true },
 ]
 </script>
 

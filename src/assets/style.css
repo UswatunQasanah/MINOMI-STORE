@@ -119,6 +119,14 @@ a{color:inherit;}
   min-height:220px;
   align-items:center;
 }
+.hero-upload-image{
+  width:min(100%, 360px);
+  max-height:360px;
+  border-radius:20px;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+}
 .brand-logo-wrapper--hero{
   width:clamp(132px, 28vw, 212px);
   height:clamp(132px, 28vw, 212px);

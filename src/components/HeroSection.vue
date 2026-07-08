@@ -26,7 +26,14 @@ const hero = computed(() => content.value.hero)
       </div>
 
       <div class="brand-logo-stage flex justify-center" data-reveal>
-        <div class="brand-logo-wrapper brand-logo-wrapper--hero" aria-hidden="true">
+        <img
+          v-if="hero.image"
+          :src="hero.image"
+          :alt="hero.imageAlt"
+          class="hero-upload-image"
+          loading="lazy"
+        />
+        <div v-else class="brand-logo-wrapper brand-logo-wrapper--hero" aria-hidden="true">
           <div class="brand-logo brand-logo--hero stamp">
             <svg viewBox="0 0 100 100">
               <path id="ringLg" d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="none" />

@@ -4,7 +4,7 @@ import AdminArrayEditor from '../components/AdminArrayEditor.vue'
 const fields = [
   { name: 'title', label: 'Nama best seller' },
   { name: 'category', label: 'Kategori' },
-  { name: 'image', label: 'URL/path gambar atau upload', type: 'image', full: true },
+  { name: 'image', label: 'URL/path gambar atau upload', type: 'image', uploadFolder: 'best-seller', full: true },
   { name: 'imageAlt', label: 'Alt gambar', full: true },
   { name: 'description', label: 'Deskripsi', type: 'textarea' },
 ]
